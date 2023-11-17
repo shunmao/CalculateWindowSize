@@ -48,6 +48,7 @@
     </head>
     <body>
         <div style="background-color: E3E3E3;"><p>業務員：<input class="saleName" type="text"/></p></div>
+	<div><a id="addManufacturer" href="javascript:void(0)">新增廠商</a></div>
         <div style="background-color: BEEFFB;">
             <p>
             <label>
@@ -89,7 +90,7 @@
                 </p>
                 <p class="foldP"><label>用布量倍數：<input class=“fold” type="number" value="2"/></label></p>
                 <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
-		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt;">開始試算</a>
+		<a href="javascript:void(0)">開始試算</a>
                 <p>試算結果：</p>
 		<p class="CalculateResult"></p>
             </div>
@@ -116,7 +117,7 @@
                 </p>
                 <p class="foldP"><label>用布量倍數：<input class=“fold” type="number" value="2" /></label></p>
                 <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
-		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt; text-decoration: none;">開始試算</a>
+		<a href="javascript:void(0)">開始試算</a>
                 <p>試算結果：</p>
 		<p class="CalculateResult"></p>
             </div>
@@ -202,6 +203,19 @@
 					$(this).parent().parent().children().eq(1).hide();
 					$(this).parent().parent().children().eq(2).hide();
 				}
+			});
+
+			$("a#addManufacturer").click(function(){
+				$.ajax({
+					url: 'https://script.google.com/macros/s/AKfycbx7hF4j3OE-qKI10AMwqgrgcMTc47mU-UMsPUfQLOJby3Dee4i72UwrzR72h6dLxQoT/exec', // 替換為你的 GAS Web 應用程式 URL
+					method: 'GET',
+					success: function(response) {
+						console.log('成功：', response);
+					},
+					error: function(error) {
+						console.error('錯誤：', error);
+					}
+				});
 			});
 		});
 	</script>
