@@ -75,8 +75,8 @@
                 </p>
                 <p class="trackP">請選擇軌道：
 			<select>
-				<option value="0" selected>手撥軌MA(100)</option>
-				<option value="1">拉繩軌MB(110)</option>
+				<option value="0" selected>手撥軌MB(100)</option>
+				<option value="1">拉繩軌MA(110)</option>
 				<option value="2">可彎手撥軌(160)</option>
 				<option value="3">可彎拉繩軌(210)</option>
 				<option value="4">手撥蛇軌(200)</option>
@@ -87,7 +87,7 @@
 				<option value="9">可彎蛇8軌(基本三尺)(300)</option>
 			</select>
                 </p>
-                <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2"/></label></p>
+                <p class="foldP"><label>用布量倍數：<input class=“fold” type="number" value="2"/></label></p>
                 <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt;">開始試算</a>
                 <p>試算結果：</p>
@@ -102,8 +102,8 @@
                 </p>
                 <p class="trackP">請選擇軌道：
 			<select>
-				<option value="0" selected>手撥軌MA(100)</option>
-				<option value="1">拉繩軌MB(110)</option>
+				<option value="0" selected>手撥軌MB(100)</option>
+				<option value="1">拉繩軌MA(110)</option>
 				<option value="2">可彎手撥軌(160)</option>
 				<option value="3">可彎拉繩軌(210)</option>
 				<option value="4">手撥蛇軌(200)</option>
@@ -114,7 +114,7 @@
 				<option value="9">可彎蛇8軌(基本三尺)(300)</option>
 			</select>
                 </p>
-                <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2" /></label></p>
+                <p class="foldP"><label>用布量倍數：<input class=“fold” type="number" value="2" /></label></p>
                 <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt; text-decoration: none;">開始試算</a>
                 <p>試算結果：</p>
@@ -162,9 +162,10 @@
 				var curtain = $(this).parent();
 				var place = curtain .parent();
 				var calcuationType = curtain.children().eq(0).children().val(); //計算類別
-				var calcuationTrack = curtain.children().eq(1).children().children().val(); //軌道
+				var calcuationTrack = curtain.children().eq(1).children().val(); //軌道
 				var trackPrice = [100, 110, 160, 210, 200, 250, 200, 250, 110, 300];
-				var calcuationFold = curtain.children().eq(2).children().children().val(); //折數
+				console.log(curtain.children().eq(1).children().val());
+				var calcuationFold = curtain.children().eq(2).children().children().val(); //用布量倍數
 				var calcuationPrice = curtain.children().eq(3).children().children().val(); //牌價
 				var calcuationResult = curtain.children().eq(6); //試算結果
 
