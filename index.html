@@ -63,15 +63,29 @@
                 	<label style="display: inline-block; width: 48%;">窗<input type="checkbox" name="haveScreen" value="0" checked /></label>
                 	<label style="display: inline-block; width: 48%;">紗<input type="checkbox" name="haveScreen" value="1"/></label>
             	</p>
-            <p><label>請輸入窗寬：<input class="wW" type="number" min="1" value="1"/> </label></p>
-            <p><label>請輸入窗高：<input class="wH" type="number" min="1" value="1"/> </label></p>
+            <p><label>請輸入窗寬(臺尺)：<input class="wW" type="number" min="1" value="1"/> </label></p>
+            <p><label>請輸入窗高(臺尺)：<input class="wH" type="number" min="1" value="1"/> </label></p>
             <div class="curtain">
                 <p>請選擇計算類型：
-                    <select>
+                    <select class="calcuationType">>
                         <option value=0>五尺布</option>
                         <option value=1>才數</option>
                         <option value=2>無縫布</option>
                     </select>
+                </p>
+                <p>請選擇軌道：
+			<select>
+				<option value="100" selected>手撥軌MA(100)<option>
+				<option value="110">拉繩軌MB(110)<option>
+				<option value="160">可彎手撥軌(160)<option>
+				<option value="210">可彎拉繩軌(210)<option>
+				<option value="200">手撥蛇軌(200)<option>
+				<option value="250">拉繩蛇軌(250)<option>
+				<option value="200">懸空軌(基本五尺)(200)<option>
+				<option value="250">羅馬簾軌道(基本三尺)(250)<option>
+				<option value="110">佐旭可灣蛇軌(110)<option>
+				<option value="300">可彎蛇8軌(基本三尺)(300)<option>
+			</select>
                 </p>
                 <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt;">開始試算</a>
@@ -80,11 +94,24 @@
             </div>
             <div class="gquze" style="display: none;">
                 <p>請選擇計算類型：
-                    <select>
-                        <option value=0>五尺布</option>
-                        <option value=1>才數</option>
-                        <option value=2>無縫布</option>
+                    <select class="calcuationType">
+                        <option value=0>五尺</option>
+                        <option value=2>無縫</option>
                     </select>
+                </p>
+                <p>請選擇軌道：
+			<select>
+				<option value="100" selected>手撥軌MA(100)<option>
+				<option value="110">拉繩軌MB(110)<option>
+				<option value="160">可彎手撥軌(160)<option>
+				<option value="210">可彎拉繩軌(210)<option>
+				<option value="200">手撥蛇軌(200)<option>
+				<option value="250">拉繩蛇軌(250)<option>
+				<option value="200">懸空軌(基本五尺)(200)<option>
+				<option value="250">羅馬簾軌道(基本三尺)(250)<option>
+				<option value="110">佐旭可灣蛇軌(110)<option>
+				<option value="300">可彎蛇8軌(基本三尺)(300)<option>
+			</select>
                 </p>
                 <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt; text-decoration: none;">開始試算</a>
@@ -122,7 +149,37 @@
         				place.children().filter(".gquze").hide();
     				}
 			});
+			
+			$("a").click(function(){
+				var curtain = $(this).parent();
+				var place = curtain .parent();
+				var calcuationType = curtain.children().eq(0).children().val(); //計算類別
+				var calcuationPrice = curtain.children().eq(2).children().children().val(); //牌價
+				var calcuationTrack = curtain.children().eq(1).children().children().val(); //軌道
+				var calcuationResult = curtain.children().eq(5); //試算結果
+				var width = place.children().eq(3).children().children().val();
+				var height = place.children().eq(4).children().children().val();
+				var track = Math.ceil(width) * calcuationTrack; //軌道價格
+				if(calcuationType == 0){
+					var unit = Math.ceil(width*2/5);
+					var result = unit*(Math.ceil(height)+1)*calcuationPrice+track ;
+					calcuationResult.text("總共為" + unit +"幅，一共" + result + "元")
+				}
+				else if(calcuationType == 1){
+					var unit = Math.ceil(width)*Math.ceil(height);
+					var result = unit*calcuationPrice;
+					calcuationResult.text("總共為" + unit +"才，一共" + result + "元")
+				}
+				else{
+					var unit = Math.ceil(width)*2;
+					var result = unit*calcuationPrice+track;
+					calcuationResult.text("總共為" + unit +"尺，一共" + result + "元")
+				}
+			});
 
+			$(".wH, .wW, .price").focus(function(){
+				$(this).val("");
+			});
 		});
 	</script>
     </body>
