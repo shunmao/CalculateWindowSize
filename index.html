@@ -57,14 +57,14 @@
             </p>
         </div>
         <div class="CalculateSize" style="background-color: E5FFC3;">
-            <p>第<span class="placeN">1</span>間</p>
+            <p>第<span class="placeN">1</span>窗</p>
             <p>是否含有紗</p>
 		<p>
                 	<label style="display: inline-block; width: 48%;">窗<input type="checkbox" name="haveScreen" value="0" checked /></label>
                 	<label style="display: inline-block; width: 48%;">紗<input type="checkbox" name="haveScreen" value="1"/></label>
             	</p>
-            <p><label>請輸入窗寬(臺尺)：<input class="wW" type="number" min="0" value="0"/> </label></p>
-            <p><label>請輸入窗高(臺尺)：<input class="wH" type="number" min="0" value="0"/> </label></p>
+            <p><label>請輸入窗寬(臺尺)：<input class="wW" type="number" min="0" value=""/> </label></p>
+            <p><label>請輸入窗高(臺尺)：<input class="wH" type="number" min="0" value=""/> </label></p>
             <div class="curtain">
                 <p>請選擇計算類型：
                     <select class="calcuationType">>
@@ -73,7 +73,7 @@
                         <option value=2>無縫布</option>
                     </select>
                 </p>
-                <p>請選擇軌道：
+                <p class="trackP">請選擇軌道：
 			<select>
 				<option value="100" selected>手撥軌MA(100)<option>
 				<option value="110">拉繩軌MB(110)<option>
@@ -87,19 +87,20 @@
 				<option value="300">可彎蛇8軌(基本三尺)(300)<option>
 			</select>
                 </p>
-                <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
+                <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2"/></label></p>
+                <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt;">開始試算</a>
                 <p>試算結果：</p>
 		<p class="CalculateResult"></p>
             </div>
-            <div class="gquze" style="display: none;">
+            <div class="gquze" style="display: none; background-color: #C1E9A5; margin-top: 1em; ">
                 <p>請選擇計算類型：
                     <select class="calcuationType">
                         <option value=0>五尺</option>
                         <option value=2>無縫</option>
                     </select>
                 </p>
-                <p>請選擇軌道：
+                <p class="trackP">請選擇軌道：
 			<select>
 				<option value="100" selected>手撥軌MA(100)<option>
 				<option value="110">拉繩軌MB(110)<option>
@@ -113,7 +114,8 @@
 				<option value="300">可彎蛇8軌(基本三尺)(300)<option>
 			</select>
                 </p>
-                <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
+                <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2" /></label></p>
+                <p class="priceP"><label>請輸入牌價：<input class=“price” type="number"/></label></p>
 		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt; text-decoration: none;">開始試算</a>
                 <p>試算結果：</p>
 		<p class="CalculateResult"></p>
@@ -157,18 +159,19 @@
 			});
 			
 			$("body").on("click", "a", function(){
-				console.log($(this));
 				var curtain = $(this).parent();
 				var place = curtain .parent();
 				var calcuationType = curtain.children().eq(0).children().val(); //計算類別
-				var calcuationPrice = curtain.children().eq(2).children().children().val(); //牌價
 				var calcuationTrack = curtain.children().eq(1).children().children().val(); //軌道
-				var calcuationResult = curtain.children().eq(5); //試算結果
+				var calcuationFold = curtain.children().eq(2).children().children().val(); //折數
+				var calcuationPrice = curtain.children().eq(3).children().children().val(); //牌價
+				var calcuationResult = curtain.children().eq(6); //試算結果
+
 				var width = place.children().eq(3).children().children().val();
 				var height = place.children().eq(4).children().children().val();
 				var track = Math.ceil(width) * calcuationTrack; //軌道價格
 				if(calcuationType == 0){
-					var unit = Math.ceil(width*2/5);
+					var unit = Math.ceil(width*calcuationFold/5);
 					var result = unit*(Math.ceil(height)+1)*calcuationPrice+track ;
 					calcuationResult.text("總共為" + unit +"幅，一共" + result + "元")
 				}
@@ -178,7 +181,7 @@
 					calcuationResult.text("總共為" + unit +"才，一共" + result + "元")
 				}
 				else{
-					var unit = Math.ceil(width)*2;
+					var unit = Math.ceil(width)*calcuationFold;
 					var result = unit*calcuationPrice+track;
 					calcuationResult.text("總共為" + unit +"尺，一共" + result + "元")
 				}
@@ -186,6 +189,17 @@
 
 			$("body").on("focus", ".wH, .wW, .price, #windowNum", function(){
 				$(this).val("");
+			});
+
+			$("body").on("change", ".calcuationType", function(){
+				if($(this).val() == 0 || $(this).val() == 2){
+					$(this).parent().parent().children().eq(1).show();
+					$(this).parent().parent().children().eq(2).show();
+				}
+				else{
+					$(this).parent().parent().children().eq(1).hide();
+					$(this).parent().parent().children().eq(2).hide();
+				}
 			});
 		});
 	</script>
