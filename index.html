@@ -75,16 +75,16 @@
                 </p>
                 <p class="trackP">請選擇軌道：
 			<select>
-				<option value="100" selected>手撥軌MA(100)</option>
-				<option value="110">拉繩軌MB(110)</option>
-				<option value="160">可彎手撥軌(160)</option>
-				<option value="210">可彎拉繩軌(210)</option>
-				<option value="200">手撥蛇軌(200)</option>
-				<option value="250">拉繩蛇軌(250)</option>
-				<option value="200">懸空軌(基本五尺)(200)</option>
-				<option value="250">羅馬簾軌道(基本三尺)(250)</option>
-				<option value="110">佐旭可灣蛇軌(110)</option>
-				<option value="300">可彎蛇8軌(基本三尺)(300)</option>
+				<option value="0" selected>手撥軌MA(100)</option>
+				<option value="1">拉繩軌MB(110)</option>
+				<option value="2">可彎手撥軌(160)</option>
+				<option value="3">可彎拉繩軌(210)</option>
+				<option value="4">手撥蛇軌(200)</option>
+				<option value="5">拉繩蛇軌(250)</option>
+				<option value="6">懸空軌(基本五尺)(200)</option>
+				<option value="7">羅馬簾軌道(基本三尺)(250)</option>
+				<option value="8">佐旭可灣蛇軌(110)</option>
+				<option value="9">可彎蛇8軌(基本三尺)(300)</option>
 			</select>
                 </p>
                 <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2"/></label></p>
@@ -102,16 +102,16 @@
                 </p>
                 <p class="trackP">請選擇軌道：
 			<select>
-				<option value="100" selected>手撥軌MA(100)</option>
-				<option value="110">拉繩軌MB(110)</option>
-				<option value="160">可彎手撥軌(160)</option>
-				<option value="210">可彎拉繩軌(210)</option>
-				<option value="200">手撥蛇軌(200)</option>
-				<option value="250">拉繩蛇軌(250)</option>
-				<option value="200">懸空軌(基本五尺)(200)</option>
-				<option value="250">羅馬簾軌道(基本三尺)(250)</option>
-				<option value="110">佐旭可灣蛇軌(110)</option>
-				<option value="300">可彎蛇8軌(基本三尺)(300)</option>
+				<option value="0" selected>手撥軌MA(100)</option>
+				<option value="1">拉繩軌MB(110)</option>
+				<option value="2">可彎手撥軌(160)</option>
+				<option value="3">可彎拉繩軌(210)</option>
+				<option value="4">手撥蛇軌(200)</option>
+				<option value="5">拉繩蛇軌(250)</option>
+				<option value="6">懸空軌(基本五尺)(200)</option>
+				<option value="7">羅馬簾軌道(基本三尺)(250)</option>
+				<option value="8">佐旭可灣蛇軌(110)</option>
+				<option value="9">可彎蛇8軌(基本三尺)(300)</option>
 			</select>
                 </p>
                 <p class="foldP"><label>請輸入折數：<input class=“fold” type="number" value="2" /></label></p>
@@ -163,13 +163,14 @@
 				var place = curtain .parent();
 				var calcuationType = curtain.children().eq(0).children().val(); //計算類別
 				var calcuationTrack = curtain.children().eq(1).children().children().val(); //軌道
+				var trackPrice = [100, 110, 160, 210, 200, 250, 200, 250, 110, 300];
 				var calcuationFold = curtain.children().eq(2).children().children().val(); //折數
 				var calcuationPrice = curtain.children().eq(3).children().children().val(); //牌價
 				var calcuationResult = curtain.children().eq(6); //試算結果
 
 				var width = place.children().eq(3).children().children().val();
 				var height = place.children().eq(4).children().children().val();
-				var track = Math.ceil(width) * calcuationTrack; //軌道價格
+				var track = Math.ceil(width) * trackPrice[calcuationTrack]; //軌道價格
 				if(calcuationType == 0){
 					var unit = Math.ceil(width*calcuationFold/5);
 					var result = unit*(Math.ceil(height)+1)*calcuationPrice+track ;
