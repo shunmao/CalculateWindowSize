@@ -1,27 +1,71 @@
 <html>
     <head>
-        <link href="index.css" rel="stylesheet">
+        <!--<link href="index.css" rel="stylesheet">-->
         <title>敦品窗飾計算機</title>
+	<style>
+		body{
+			padding: 1em;
+		}
+		div{
+			padding: 0 1em;
+		}
+		p{
+			font-size: 60pt;
+			margin: 0;
+		}
+		input{
+  			width: 100%;
+  			padding: 12px 20px;
+  			margin: 8px 0;
+  			box-sizing: border-box;
+			font-size: 60pt;
+		}
+		select{
+  			width: 100%;
+  			padding: 12px 20px;
+  			margin: 8px 0;
+  			box-sizing: border-box;
+			font-size: 60pt;
+		}
+		.CalculateSize{
+			border: 1px solid #000;
+		}
+		input[type=checkbox] {
+    			border: 0px;
+    			width: 100%;
+    			height: 1em;
+		}
+		a{
+			display: block; 
+			width: 100%; 
+			font-size: 60pt; 
+			text-decoration: none;
+			color: #000;
+			text-align: center;
+			background-color: #eee;
+		}
+	</style>
     </head>
     <body>
-        <div><p>業務員：<input class="saleName" type="text"/></p></div>
-        <div>
+        <div style="background-color: E3E3E3;"><p>業務員：<input class="saleName" type="text"/></p></div>
+        <div style="background-color: BEEFFB;">
             <p>
             <label>
-                <span>我要計算</span>
-                <input type="number" min="1" value="1"/><span>扇窗</span>
+                <span>我要計算幾扇窗</span>
+                <input id="windowNum" type="number" min="1" value="1"/>
             </label>
             </p>
         </div>
-        <div class="CalculateSize">
+        <div class="CalculateSize" style="background-color: E5FFC3;">
             <p>第<span class="placeN"></span>間</p>
-            <p>是否含有紗
-                <label>是<input type="radio" value="0"/></label>
-                <label>否<input type="radio" value="1"/></label>
-            </p>
-            <p><label>請輸入窗簾寬：<input class="wW" type="number" min="1" value="1"/> </label></p>
-            <p><label>請輸入窗簾高：<input class="wH" type="number" min="1" value="1"/> </label></p>
-            <div>
+            <p>是否含有紗</p>
+		<p>
+                	<label style="display: inline-block; width: 48%;">窗<input type="checkbox" name="haveScreen" value="0" checked /></label>
+                	<label style="display: inline-block; width: 48%;">紗<input type="checkbox" name="haveScreen" value="1"/></label>
+            	</p>
+            <p><label>請輸入窗寬：<input class="wW" type="number" min="1" value="1"/> </label></p>
+            <p><label>請輸入窗高：<input class="wH" type="number" min="1" value="1"/> </label></p>
+            <div class="curtain">
                 <p>請選擇計算類型：
                     <select>
                         <option value=0>五尺布</option>
@@ -30,8 +74,56 @@
                     </select>
                 </p>
                 <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
-                <p>試算結果：<span></span></p>
+		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt;">開始試算</a>
+                <p>試算結果：</p>
+		<p class="CalculateResult"></p>
+            </div>
+            <div class="gquze" style="display: none;">
+                <p>請選擇計算類型：
+                    <select>
+                        <option value=0>五尺布</option>
+                        <option value=1>才數</option>
+                        <option value=2>無縫布</option>
+                    </select>
+                </p>
+                <p><label>請輸入牌價：<input class=“price” type="number"/></label></p>
+		<a href="javascript:void(0)" style="display: bolck; width: 100%; font-size: 60pt; text-decoration: none;">開始試算</a>
+                <p>試算結果：</p>
+		<p class="CalculateResult"></p>
             </div>
         </div>
+	<script
+  		src="https://code.jquery.com/jquery-3.7.1.min.js"
+  		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  		crossorigin="anonymous">
+	</script>
+	<script>
+		$(document).ready(function(){
+
+  			$("#windowNum").change(function(){
+				for (let i = 1; i < $("#windowNum").val(); i++) {
+					var cloneDiv = $(".CalculateSize").last().clone();
+					$("body").append(cloneDiv);
+				}
+			});
+
+			$('input[type=checkbox][name=haveScreen]').change(function() {
+				var place = $(this).parent().parent().parent();
+    				if (this.value == '0' && this.checked) {
+        				place.children().filter(".curtain").show();
+    				}
+    				else if (this.value == '1' && this.checked) {
+        				place.children().filter(".gquze").show();
+    				}
+    				else if (this.value == '0' && !this.checked) {
+        				place.children().filter(".curtain").hide();
+    				}
+    				else if (this.value == '1' && !this.checked) {
+        				place.children().filter(".gquze").hide();
+    				}
+			});
+
+		});
+	</script>
     </body>
 </html>
